@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.dk.object.IbeaconInfo;
 import com.dk.object.PositionInfo;
 import com.dk.result.Result;
 import com.dk.service.PositonService;
@@ -129,6 +130,79 @@ public class PositionServiceImpl implements PositonService{
 			if(ps!=null){
 				try {
 					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public Result getInfo(PositionInfo info) {
+		// TODO Auto-generated method stub
+		Result result = new Result();
+		Connection conn = null;
+		Statement st = null;
+		List<PositionInfo> infos = new ArrayList<PositionInfo>();
+		
+		try {
+			conn = DBUtil.getConnection();
+			st = conn.createStatement();
+			StringBuffer sql = new StringBuffer("select * from positioning where 1= 1");
+			
+			if(info.getEquipmentNum()!=null&!info.getEquipmentNum().isEmpty()){
+				sql.append(" and equipment_num='"+info.getEquipmentNum()+"'");
+			}
+			if(info.getFrameNum()!=null&&!info.getFrameNum().isEmpty()){
+				sql.append(" and frame_num='"+info.getFrameNum()+"'");
+			}
+			if(info.getElec()!=null){
+				sql.append(" and electricity="+info.getElec());
+			}
+			if(info.getPositionMode()!=null&&!info.getPositionMode().isEmpty()){
+				sql.append(" and positioning_mode='"+info.getPositionMode()+"'");
+			}
+			
+			ResultSet rs = st.executeQuery(sql.toString());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			while(rs.next()){
+				PositionInfo position = new PositionInfo();
+				position.setEquipmentNum(rs.getString("equipment_num"));
+				position.setFrameNum(rs.getString("frame_num"));
+				position.setElec(rs.getInt("electricity"));
+				position.setLog(rs.getDouble("longitude"));
+				position.setLat(rs.getDouble("latitude"));
+				position.setPositionMode(rs.getString("positioning_mode"));
+				Timestamp positionTime = rs.getTimestamp("positioning_time");
+				position.setPositionTime(positionTime);
+				if(positionTime!=null){
+					position.setPositionTimeStr(sdf.format((Date)positionTime));
+				}
+				
+				infos.add(position);
+			}
+			result.setData(infos);
+			result.setMessage("查询成功");
+			result.setStates(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			result.setStates(false);
+			result.setMessage("查询失败");
+			e.printStackTrace();
+		} finally{
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(st!=null){
+				try {
+					st.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

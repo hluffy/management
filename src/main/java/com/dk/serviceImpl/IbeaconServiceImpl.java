@@ -124,9 +124,10 @@ public class IbeaconServiceImpl implements IbeaconService{
 		if(info.getMinor()!=null){
 			sql.append(" and minor="+info.getMinor());
 		}
-		if(!info.getUuid().isEmpty()&&info.getUuid()!=null){
+		if(info.getUuid()!=null&&!info.getUuid().isEmpty()){
 			sql.append(" and uuid='"+info.getUuid()+"'");
 		}
+		sql.append(" order by minor");
 		try {
 			conn = DBUtil.getConnection();
 			st = conn.createStatement();

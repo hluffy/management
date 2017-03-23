@@ -12,6 +12,22 @@ app.service("userService",function($http,$q){
 	        
 	        return string;
 	};
+	
+	this.getUserInfo = function(user){
+		var deferred = $q.defer();
+		$http({
+			method:"post",
+			url:"http://localhost:8080/management/user/getinfo.ll",
+			data:user,
+			dataType:"json"
+		}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(){
+			deferred.reject("查询失败");
+		});
+		
+		return deferred.promise;
+	}
 	    
 	this.getUserInfos = function(){
 		var deferred = $q.defer();

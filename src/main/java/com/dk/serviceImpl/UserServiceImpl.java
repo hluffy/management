@@ -306,4 +306,81 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 
+	@Override
+	public Result getUserInfo(User info) {
+		// TODO Auto-generated method stub
+		Result result = new Result();
+		Connection conn = null;
+		Statement st = null;
+		List<User> infos = new ArrayList<User>();
+		StringBuffer sql = new StringBuffer("select * from userinfo where 1 =1 ");
+		
+		try {
+			conn = DBUtil.getConnection();
+			st = conn.createStatement();
+			if(info.getUserName()!=null&&!info.getUserName().isEmpty()){
+				sql.append(" and user_name='"+info.getUserName()+"'");
+			}
+			if(info.getPassword()!=null&&!info.getPassword().isEmpty()){
+				sql.append(" and password ='"+Md5Util.md5String(info.getPassword())+"'");
+			}
+			if(info.getPhoneNum()!=null&&!info.getPhoneNum().isEmpty()){
+				sql.append(" and phone_number='"+info.getPhoneNum()+"'");
+			}
+			if(info.getEmail()!=null&&!info.getEmail().isEmpty()){
+				sql.append(" and email='"+info.getEmail()+"'");
+			}
+			if(info.getRole()!=null&&!info.getRole().isEmpty()){
+				sql.append(" and role ='"+info.getRole()+"'");
+			}
+			
+			ResultSet rs = st.executeQuery(sql.toString());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			while(rs.next()){
+				User user = new User();
+				user.setUserName(rs.getString("user_name"));
+				user.setPassword(rs.getString("password"));
+				user.setPhoneNum(rs.getString("phone_number"));
+				user.setEmail(rs.getString("email"));
+				user.setRole(rs.getString("role"));
+				Timestamp createTime = rs.getTimestamp("create_time");
+				user.setCreateTime(createTime);
+				if(createTime!=null){
+					user.setCreateTimeStr(sdf.format((Date)createTime));
+				}
+				
+				
+				infos.add(user);
+			}
+			
+			result.setData(infos);
+			result.setMessage("查询成功");
+			result.setStates(true);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			result.setStates(false);
+			result.setMessage("查询失败");
+			e.printStackTrace();
+		} finally{
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(st!=null){
+				try {
+					st.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
 }

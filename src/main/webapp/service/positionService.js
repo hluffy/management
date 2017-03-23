@@ -10,5 +10,21 @@ app.service("positionSer",function($http,$q){
 		return deferred.promise;
 	}
 	
+	this.getPositionInfo = function(position){
+		var deferred = $q.defer();
+		$http({
+			method:"post",
+			url:"http://localhost:8080/management/position/getinfo.ll",
+			data:position,
+			dataType:"json"
+		}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(){
+			deferred.reject("查询失败");
+		});
+		
+		return deferred.promise;
+	}
+	
 	
 });

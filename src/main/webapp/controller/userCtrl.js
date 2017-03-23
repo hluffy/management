@@ -17,15 +17,33 @@ app.controller("userCtrl",function($rootScope,$scope,$http,userService){
 	
 	userService.getUserInfos().then(function(data){
 		console.log(data.data);
-		$scope.users = data.data;
+		$rootScope.users = data.data;
 	});
 	
+//	$http.get("http://localhost:8080/management/user/getinfos.ll").success(function(data){
+//		$scope.users = data.data;
+//	});
+	
 	$scope.addUser = function(){
-		$scope.uesr = {};
 		userService.saveUserInfo($scope.user).then(function(data){
 			console.log(data);
+			alert(data.message);
 			$scope.user = {};
 		});
+	}
+	
+//	$scope.getUserInfo = function(){
+//		console.log(1111);
+//		$scope.users = {};
+//	}
+	
+	
+	$scope.getUserInfo = function(){
+		$scope.users = {};
+		userService.getUserInfo($scope.user).then(function(data){
+			console.log(data);
+			$scope.users = data.data;
+		})
 	}
 	
 	$scope.cancelUser = function($index){

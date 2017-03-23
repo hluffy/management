@@ -57,5 +57,13 @@ public class UserController {
 		result = userService.loginUserInfo(user);
 		return result;
 	}
+	
+	@RequestMapping("getinfo.ll")
+	@ResponseBody
+	public Result getUserInfo(@RequestBody User info){
+		Result result = new Result();
+		result = userService.getUserInfo(info);
+		return result;
+	}
 
 }

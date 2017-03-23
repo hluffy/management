@@ -129,22 +129,27 @@ public class CarServiceImpl implements CarService{
 		Connection conn = null;
 		Statement st = null;
 		StringBuffer sql = new StringBuffer("select * from carinfo where 1=1");
-		if(!info.getFrameNum().isEmpty()&&info.getFrameNum()!=null){
-			sql.append(" and frame_num="+info.getFrameNum());
+		if(info.getFrameNum()!=null&&!info.getFrameNum().isEmpty()){
+			sql.append(" and frame_num='"+info.getFrameNum()+"'");
 		}
-		if(!info.getEngineNum().isEmpty()&&info.getEngineNum()!=null){
-			sql.append(" and engine_num="+info.getEngineNum());
+		if(info.getEngineNum()!=null&&!info.getEngineNum().isEmpty()){
+			sql.append(" and engine_num='"+info.getEngineNum()+"'");
 		}
 		
 		try {
 			conn = DBUtil.getConnection();
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql.toString());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			while(rs.next()){
 				CarInfo carInfo = new CarInfo();
 				carInfo.setFrameNum(rs.getString("frame_num"));
 				carInfo.setEngineNum(rs.getString("engine_num"));
-				carInfo.setProductionTime(rs.getTimestamp("production_time"));
+				Timestamp productionTime = rs.getTimestamp("production_time");
+				carInfo.setProductionTime(productionTime);
+				if(productionTime!=null){
+					carInfo.setProductionTimeStr(sdf.format((Date)productionTime));
+				}
 				infos.add(carInfo);
 			}
 			result.setData(infos);

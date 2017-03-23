@@ -10,6 +10,22 @@ app.service("ibeaconSer",function($http,$q){
 		return deferred.promise;
 	}
 	
+	this.getIbeaconInfo = function(ibeacon){
+		var deferred = $q.defer();
+		$http({
+			method:"post",
+			url:"http://localhost:8080/management/ibeacon/getinfo.ll",
+			data:ibeacon,
+			dataType:"json"
+		}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(){
+			deferred.reject("查询失败");
+		});
+		
+		return deferred.promise;
+	}
+	
 	this.updateIbeaconInfo = function(ibeacon){
 		var deferred = $q.defer();
 		$http({

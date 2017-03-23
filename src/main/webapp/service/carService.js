@@ -10,6 +10,22 @@ app.service("carService",function($http,$q){
 		return deferred.promise;
 	}
 	
+	this.getCarInfo = function(car){
+		var deferred = $q.defer();
+		$http({
+			method:"post",
+			url:"http://localhost:8080/management/car/getinfo.ll",
+			data:car,
+			dataType:"json"
+		}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(){
+			deferred.reject("查询失败");
+		});
+		
+		return deferred.promise;
+	}
+	
 	this.updateCarInfo = function(car){
 		var deferred = $q.defer();
 		$http({

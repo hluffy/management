@@ -9,5 +9,6 @@ public interface UserService {
 	Result addUserInfo(User info);
 	Result deleteUserInfo(User info);
 	Result loginUserInfo(User info);
+	Result getUserInfo(User info);
 
 }

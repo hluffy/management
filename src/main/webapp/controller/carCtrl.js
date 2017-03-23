@@ -7,19 +7,27 @@
 //	
 //});
 
-app.controller("carCtrl",function($scope,carService){
+app.controller("carCtrl",function($rootScope,$scope,carService){
 	$scope.master = {};
 	$scope.car = {};
 	$scope.isShow = false;
 	carService.getCarInfos().then(function(data){
-		$scope.cars = data.data;
+		$rootScope.cars = data.data;
 	});
 	
-	$scope.addCar = function(car){
+	$scope.addCar = function(){
 		
 		carService.addCarInfo($scope.car).then(function(data){
 			console.log(data);
+			alert(data.message);
 			$scope.car = {};
+		});
+	}
+	
+	$scope.getCarInfo = function(){
+		carService.getCarInfo($scope.car).then(function(data){
+			console.log(data);
+			$scope.cars = data.data;
 		});
 	}
 	

@@ -48,5 +48,13 @@ public class IbeaconController {
 		result = ibeaconService.deleteInfo(info);
 		return result;
 	}
+	
+	@RequestMapping("getinfo.ll")
+	@ResponseBody
+	public Result getIbeaconInfo(@RequestBody IbeaconInfo info){
+		Result result = new Result();
+		result = ibeaconService.getInfo(info);
+		return result;
+	}
 
 }

@@ -6,19 +6,28 @@
 //	});
 //});
 
-app.controller("ibeaconCtrl",function($scope,ibeaconSer){
+app.controller("ibeaconCtrl",function($rootScope,$scope,ibeaconSer){
 	$scope.isShow = false;
 	$scope.master = {};
+	$scope.ibeacon = {};
 	ibeaconSer.getIbeaconInfos().then(function(data){
 		console.log(data);
-		$scope.ibeacons = data.data;
+		$rootScope.ibeacons = data.data;
 	});
 	
-	$scope.ibeacon = {};
+	
 	$scope.addIbeacon = function(ibeacon){
 		ibeaconSer.addIbeaconInfo($scope.ibeacon).then(function(data){
 			console.log(data);
+			alert(data.message);
 			$scope.ibeacon = {};
+		});
+	}
+	
+	$scope.getIbeaconInfo = function(ibeacon){
+		ibeaconSer.getIbeaconInfo($scope.ibeacon).then(function(data){
+			console.log(data);
+			$scope.ibeacons = data.data;
 		});
 	}
 });
