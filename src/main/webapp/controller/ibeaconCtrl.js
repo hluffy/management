@@ -80,6 +80,7 @@ app.directive("ibedelete",function($document,ibeaconSer){
 						if(scope.ibeacons[i].minor==id){
 							ibeaconSer.deleteIbeaconInfo(ngModel.$modelValue).then(function(data){
 								console.log(data);
+								alert(data.message);
 							});
 							scope.ibeacons.splice(i,1);
 						}
@@ -106,6 +107,7 @@ app.directive("ibeupdate",function($document,ibeaconSer){
 					ibeaconSer.updateIbeaconInfo(ngModel.$modelValue).then(function(data){
 						scope.isShow = false;
 						console.log(data);
+						alert(data.message);
 					});
 				});
 				

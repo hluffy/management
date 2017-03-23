@@ -135,6 +135,7 @@ app.directive("userdelete",function($document,userService){
 							userService.deleteUserInfo(ngModel.$modelValue).then(function(data){
 								
 								console.log(data);
+								alert(data.message);
 							});
 							scope.users.splice(i,1);
 							
@@ -162,6 +163,7 @@ app.directive("userupdate",function($document,userService){
 					userService.updateUserInfo(ngModel.$modelValue).then(function(data){
 						scope.isShow = false;
 						console.log(data);
+						alert(data.message);
 					});
 				})
 			});

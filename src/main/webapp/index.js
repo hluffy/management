@@ -126,7 +126,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('maproad',{
         	url:'/maproad',
-        	templateUrl:'html/map/map.html'
+        	templateUrl:'html/map/maproad.html'
         })
         .state('barchart',{
         	url:'/barchart',

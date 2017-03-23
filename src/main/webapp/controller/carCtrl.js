@@ -114,6 +114,7 @@ app.directive("cardelete",function($document,carService){
 						if(scope.cars[i].frameNum==id){
 							carService.deleteCarInfo(ngModel.$modelValue).then(function(data){
 								console.log(data);
+								alert(data.message);
 								
 							});
 							scope.cars.splice(i,1);
@@ -143,6 +144,7 @@ app.directive("carupdate",function($document,carService){
 					carService.updateCarInfo(ngModel.$modelValue).then(function(data){
 						scope.isShow = false;
 						console.log(data);
+						alert(data.message);
 					});
 				});
 			});

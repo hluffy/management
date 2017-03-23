@@ -1,0 +1,28 @@
+<div ng-controller="maproadCtr">
+	<section class="content-header">
+	<h1>map</h1>
+	</section>
+	<section class="content">
+	 <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">车架号查询</h3>
+
+              <div class="box-tools">
+                <div style="width: 450px;">
+                 	 起点:&nbsp;&nbsp;<input ng-model="map.framenum" type="text" placeholder="输入车架号">
+                  &nbsp;&nbsp;--&nbsp;&nbsp;终点:&nbsp;&nbsp;<input type="text" value="柜台" readonly="readonly">
+                  <button ng-click="getRoadInfo()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+<!--             <div id="leafletMap" class="box-body table-responsive no-padding" ng-controller="mapCtrl"> -->
+				<div id="leafletMap" style="width:100%;height:550px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
