@@ -1,0 +1,170 @@
+//app.controller("userCtrl",function($scope,$http){
+//	$scope.master = {};
+//	$scope.isShow = false;
+//	$http.get("../resources/user/users.json").success(function(data){
+//		$scope.users = data.users;
+//		console.log($scope.users);
+//	});
+//});
+
+app.controller("userCtrl",function($rootScope,$scope,$http,userService){
+	console.log(1111);
+	console.log($rootScope.userName);
+	$scope.master = {};
+	$scope.user = {};
+	$scope.defIndex = -1;
+	$scope.isShow = false;
+	
+	userService.getUserInfos().then(function(data){
+		console.log(data.data);
+		$scope.users = data.data;
+	});
+	
+	$scope.addUser = function(){
+		$scope.uesr = {};
+		userService.saveUserInfo($scope.user).then(function(data){
+			console.log(data);
+			$scope.user = {};
+		});
+	}
+	
+	$scope.cancelUser = function($index){
+		$scope.isShow = false;
+		var id = "input" + $scope.users[$index].userName;
+		var obj = $("."+id);
+		obj.removeClass("active");
+		obj.addClass("inactive");
+		obj.attr("readonly",true);
+		angular.copy($scope.master,$scope.users[$index]);
+	}
+	
+	$scope.updateUser = function($index){
+//		$event.target.show();
+//		console.log($event.target);
+		$scope.isShow = true;
+		var id = "input" + $scope.users[$index].userName;
+		var obj = $("."+id);
+		obj.removeClass("inactive");
+		obj.addClass("active");
+		obj.removeAttr("readonly");
+		obj.focus();
+		$scope.master = angular.copy($scope.users[$index]);
+		
+	}
+	
+	$scope.saveUser = function($index){
+		var id = "input" + $scope.users[$index].userName;
+		var obj = $("."+id);
+		obj.removeClass("active");
+		obj.addClass("inactive");
+		obj.attr("readonly",true);
+		$scope.isShow = false;
+		$scope.user = angular.copy($scope.users[$index]);
+		userService.updateUserInfo($scope.users[$index]).then(function(data){
+			console.log($scope.users[$index]);
+			console.log(data);
+		});
+	}
+	
+	$scope.deleteUser = function($index){
+		$scope.users.splice($index,1);
+	}
+});
+
+
+app.directive("useredit",function($document){
+	return{
+		 restrict: "E",
+		 require: "ngModel",
+		 link:function(scope,element,attrs,ngModel){
+			 element.bind("click",function(){
+				 var id = "input" + ngModel.$modelValue.userName;
+				 console.log(id);
+				 var obj = $("."+id);
+				 obj.removeClass("inactive");  
+		         obj.addClass("active");
+		         obj.removeAttr("readonly");
+		         obj.focus();
+//		         obj.next().removeClass("inactive");
+//		         obj.next().addClass("active");
+//		         obj.next().removeAttr("readonly");
+		         scope.$apply(function(){
+//		        	 angular.copy(scope.master,ngModel.$modelValue);
+		        	 scope.master = angular.copy(ngModel.$modelValue);
+		        	 scope.isShow = true;
+		         });
+			 });
+		 }
+	}
+});
+
+app.directive("usercancel",function($document){
+	return{
+		restrict:"E",
+		require:"ngModel",
+		link:function(scope,element,attrs,ngModel){
+			element.bind("click",function(){
+				scope.$apply(function(){
+					angular.copy(scope.master,ngModel.$modelValue);
+				});
+				var id = "input" + ngModel.$modelValue.userName;
+				console.log(id);
+				var obj = $("."+id);
+				obj.removeClass("active");
+				obj.addClass("inactive");
+				obj.attr("readonly",true);
+				scope.$apply(function(){
+					scope.isShow = false;
+				});
+			});
+		}
+	}
+});
+
+app.directive("userdelete",function($document,userService){
+	return{
+		restrict:"E",
+		require:"ngModel",
+		link:function(scope,element,attrs,ngModel){
+			element.bind("click",function(){
+				var id = ngModel.$modelValue.userName;
+//				console.log(id);
+				scope.$apply(function(){
+					for(var i = 0;i<scope.users.length;i++){
+						if(scope.users[i].userName==id){
+							userService.deleteUserInfo(ngModel.$modelValue).then(function(data){
+								
+								console.log(data);
+							});
+							scope.users.splice(i,1);
+							
+						}
+					}
+				});
+			});
+		}
+	}
+});
+
+app.directive("userupdate",function($document,userService){
+	return{
+		restrict:"E",
+		require:"ngModel",
+		link:function(scope,element,attrs,ngModel,index){
+			element.bind("click",function(){
+				var id = "input" + ngModel.$modelValue.userName;
+				console.log(id);
+				var obj = $("."+id);
+				obj.removeClass("active");
+				obj.addClass("inactive");
+				obj.attr("readonly",true);
+				scope.$apply(function(){
+					userService.updateUserInfo(ngModel.$modelValue).then(function(data){
+						scope.isShow = false;
+						console.log(data);
+					});
+				})
+			});
+		}
+	}
+});

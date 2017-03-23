@@ -1,0 +1,67 @@
+<section class="content-header">
+	<h1>车辆管理</h1>
+	</section>
+	<section class="content">
+	 <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">车辆信息</h3>
+
+              <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding" ng-controller="carCtrl">
+              <table class="table table-hover">
+                <tr>
+                  <th></th>
+                  <th>车架号</th>
+                  <th>发动机编号</th>
+                  <th>生产日期</th>
+                  <th></th>
+<!--                   <th>操作</th> -->
+                </tr>
+                <tr ng-repeat="car in cars">
+                	<td>{{$index+1}}</td>
+                	<td><input ng-model="car.frameNum" readonly class="inactive input{{car.frameNum}}"></td>
+                	
+<!--                 	<td>{{x.carFrameNum}}</td> -->
+					<td><input ng-model="car.engineNum" readonly class="inactive input{{car.frameNum}}"></td>
+<!--                 	<td>{{x.motorNum}}</td> -->
+                	<td><input ng-model="car.productionTimeStr" readonly class="inactive input{{car.frameNum}}"></td>
+<!--                 	<td>{{x.createDate}}</td> -->
+<!-- 					<td> -->
+<!-- 						<button class="btn btn-primary" ng-model="car" ng-show="!isShow" ng-click="updateCar($index)"><span class="glyphicon glyphicon-pencil">编辑</span></button> -->
+<!-- 						<button class="btn btn-success" ng-model="car" ng-show="isShow" ng-click="saveCar($index)"><span>保存</span></button> -->
+<!-- 						<button class="btn btn-warning" ng-model="car" ng-show="isShow" ng-click="cancelCar($index)"><span>取消</span></button> -->
+<!-- 						<button class="btn btn-danger" ng-model="car" ng-show="!isShow" ng-click="deleteCar($index)"><span>刪除</span></button> -->
+<!-- 					</td> -->
+                	<td>
+                		<caredit class="btn btn-primary" ng-model="car" ng-show="!isShow">
+				        	<span class="glyphicon glyphicon-pencil">编辑</span>
+				        </caredit>
+				        <carupdate class="btn btn-success" ng-show="isShow" ng-model="car">
+				        	<span class="glyphicon glyphicon-pencil">保存</span>
+				        </carupdate>
+				        <carcancel class="btn btn-warning" ng-show="isShow" ng-model="car">
+				        	<span>取消</span>
+				        </carcancel>
+				        <cardelete class="btn btn-danger" ng-model="car" ng-show="!isShow">
+				        	<span>删除</span>
+				        </cardelete>
+				    </td>
+                </tr>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
