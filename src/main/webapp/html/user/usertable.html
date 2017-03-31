@@ -295,12 +295,12 @@
               <table class="table table-hover">
                 <tr>
                   <th></th>
-                  <th>userName</th>
-                  <th>password</th>
-                  <th>phoneNumber</th>
-                  <th>email</th>
-                  <th>createTime</th>
-                  <th>role</th>
+                  <th>用户名</th>
+                  <th>密码</th>
+                  <th>手机号码</th>
+                  <th>邮箱</th>
+                  <th>创建时间</th>
+                  <th>角色</th>
                   <th></th>
 <!--                   <th>操作</th> -->
                 </tr>
@@ -319,7 +319,7 @@
 <!--                 	<td>{{x.telnum}}</td> -->
                 	<td><input readonly ng-model="user.createTimeStr" class="inactive input{{user.userName}}"></td>
 <!--                 	<td>{{x.other}}</td> -->
-					<td><input readonly ng-model="user.role" class="inactive input{{user.userName}}"></td>
+					<td><input style="width: 60px" readonly ng-model="user.role" class="inactive input{{user.userName}}"></td>
 <!-- 					<td> -->
 <!-- 						<button class="btn btn-primary" ng-show="!isShow" ng-click="updateUser($index)"><span class="glyphicon glyphicon-pencil">编辑</span></button> -->
 <!-- 						<button class="btn btn-success" ng-show="isShow" ng-click="saveUser($index)"><span>保存</span></button> -->
@@ -337,10 +337,10 @@
 				        	<span class="glyphicon glyphicon-pencil">保存</span>
 				        </userupdate>
 				        <usercancel class="btn btn-warning" ng-show="isShow" ng-model="user">
-				        	<span>取消</span>
+				        	<span class="glyphicon glyphicon-remove">取消</span>
 				        </usercancel>
 				        <userdelete class="btn btn-danger" ng-model="user" ng-show="!isShow">
-				        	<span>删除</span>
+				        	<span class="glyphicon glyphicon-trash">删除</span>
 				        </userdelete>
 				    </td>
                 </tr>

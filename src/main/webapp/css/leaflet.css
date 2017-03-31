@@ -534,6 +534,7 @@
 .leaflet-oldie .leaflet-popup-content-wrapper,
 .leaflet-oldie .leaflet-popup-tip {
 	border: 1px solid #999;
+	z-index:-1;
 	}
 
 

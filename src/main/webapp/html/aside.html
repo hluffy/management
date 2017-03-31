@@ -68,6 +68,38 @@
 				</span>
 			</a>
 		</li>
+		<li class="treeview">
+			<a ui-sref="map">
+				<i class="fa fa-dashboard"></i>
+				<span>地图定位</span>
+				<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+			<ul class="treeview-menu">
+				<li><a ui-sref="mapposition"><i class="fa fa-circle-o">&nbsp;位置查询</i></a></li>
+				<li><a ui-sref="maproad"><i class="fa fa-circle-o">&nbsp;路径查询</i></a></li>
+			</ul>
+		</li>
+        <li class="treeview">
+          <a ui-sref="charts">
+            <i class="fa fa-dashboard"></i>
+            <span>使用分析</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+<!--           <ul class="treeview-menu"> -->
+<!--             <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li> -->
+<!--             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li> -->
+<!--             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
+<!--             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
+<!--           </ul> -->
+			<ul class="treeview-menu">
+				<li><a href="#/barchart"><i class="fa fa-circle-o"></i>&nbsp;BarChart</a></li>
+				<li><a href="#/piechart"><i class="fa fa-circle-o"></i>&nbsp;PieChart</a></li>
+			</ul>
+        </li>
 		<li id="userid" class="treeview" my-directive="USER" my-directive-level="none">
 <!-- 		<li class="treeview"> -->
 			<a ui-sref="user">
@@ -130,38 +162,7 @@
 <!-- 				</span> -->
 <!-- 			</a> -->
 <!-- 		</li> -->
-		<li class="treeview">
-			<a ui-sref="map">
-				<i class="fa fa-dashboard"></i>
-				<span>map</span>
-				<span class="pull-right-container">
-					<i class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-			<ul class="treeview-menu">
-				<li><a ui-sref="mapposition"><i class="fa fa-circle-o">&nbsp;位置查询</i></a></li>
-				<li><a ui-sref="maproad"><i class="fa fa-circle-o">&nbsp;路径查询</i></a></li>
-			</ul>
-		</li>
-        <li class="treeview">
-          <a ui-sref="charts">
-            <i class="fa fa-dashboard"></i>
-            <span>Charts</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-<!--           <ul class="treeview-menu"> -->
-<!--             <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li> -->
-<!--             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li> -->
-<!--             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li> -->
-<!--             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> -->
-<!--           </ul> -->
-			<ul class="treeview-menu">
-				<li><a href="#/barchart"><i class="fa fa-circle-o"></i>&nbsp;BarChart</a></li>
-				<li><a href="#/piechart"><i class="fa fa-circle-o"></i>&nbsp;PieChart</a></li>
-			</ul>
-        </li>
+		
 <!--         <li class="treeview"> -->
 <!--           <a href="#"> -->
 <!--             <i class="fa fa-laptop"></i> -->

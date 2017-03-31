@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/webapp/html/aside.html=UTF-8
 encoding//src/main/webapp/html/car/addcar.html=UTF-8
 encoding//src/main/webapp/html/car/cartable.html=UTF-8
+encoding//src/main/webapp/html/dashboard/dashboard.html=UTF-8
 encoding//src/main/webapp/html/header.html=UTF-8
 encoding//src/main/webapp/html/location/GPStable.html=UTF-8
 encoding//src/main/webapp/html/location/IBeacontable.html=UTF-8
