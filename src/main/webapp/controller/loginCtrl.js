@@ -31,7 +31,7 @@ var app = angular.module("myApp",["ngCookies"]);
 
 
 
-app.controller("loginCtrl",function($rootScope,$scope,loginService){
+app.controller("loginCtrl",function($rootScope,$scope,loginService,$window){
 	$scope.user = {};
 	$scope.getFocus = function(){
 		$scope.errorImg="";
@@ -47,6 +47,12 @@ app.controller("loginCtrl",function($rootScope,$scope,loginService){
 				localStorage.setItem("userName",data.data.userName);
 				localStorage.setItem("userRole",data.data.role);
 				window.location.href="index.html";
+//				var assignRoute = "/dashboard";
+//				var href=$window.location.origin+ $window.location.pathname+"#"+assignRoute;
+//				  console.log("Assign to url: "+href);
+//				  $window.location.assign(href); 
+//				  $window.location.reload();
+
 			}
 		});
 		

@@ -1,13 +1,13 @@
 app.controller("asideCtrl",function($scope){
 //	$scope.show = true;
-	$scope.userRole = localStorage.getItem("userRole");
+	$scope.userRole = sessionStorage.getItem("userRole");
 });
 
 app.directive("myDirective",function($document){
 	var roles = ["admin","op"];
 	var elemPermissions = {
 			"admin":["*"],
-			"op":["USER"]
+			"op":["USER","CAR"]
 	};
 	console.log("my-directive")
 	return {
