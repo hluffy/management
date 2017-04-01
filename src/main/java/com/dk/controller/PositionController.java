@@ -40,5 +40,13 @@ public class PositionController {
 		result = positionService.getInfo(info);
 		return result;
 	}
+	
+	@RequestMapping("getinfoforpie.ll")
+	@ResponseBody
+	public Result getInfoForPie(){
+		Result result = new Result();
+		result = positionService.getInfoForPie();
+		return result;
+	}
 
 }

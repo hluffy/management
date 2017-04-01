@@ -7,5 +7,7 @@ public interface PositonService {
 	Result getInfos();
 	Result getInfoAsFrameNum(String frameNum);
 	Result getInfo(PositionInfo info);
+	
+	Result getInfoForPie();
 
 }

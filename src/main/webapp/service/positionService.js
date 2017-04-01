@@ -26,5 +26,19 @@ app.service("positionSer",function($http,$q){
 		return deferred.promise;
 	}
 	
+	this.getInfoForPie = function(){
+		var deferred = $q.defer();
+		$http({
+			method:"post",
+			url:"http://localhost:8080/management/position/getinfoforpie.ll",
+		}).success(function(data){
+			deferred.resolve(data);
+		}).error(function(){
+			deferred.reject("查询失败");
+		});
+		
+		return deferred.promise;
+	}
+	
 	
 });

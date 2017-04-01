@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dk.object.IbeaconInfo;
+import com.dk.object.PieData;
 import com.dk.object.PositionInfo;
 import com.dk.result.Result;
 import com.dk.service.PositonService;
@@ -190,6 +190,55 @@ public class PositionServiceImpl implements PositonService{
 			// TODO Auto-generated catch block
 			result.setStates(false);
 			result.setMessage("查询失败");
+			e.printStackTrace();
+		} finally{
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(st!=null){
+				try {
+					st.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public Result getInfoForPie() {
+		// TODO Auto-generated method stub
+		Result result = new Result();
+		Connection conn = null;
+		Statement st = null;
+		List<PieData> infos = new ArrayList<PieData>();
+		
+		try {
+			String sql = "select count(*) as value,positioning_mode from positioning group by positioning_mode";
+			conn = DBUtil.getConnection();
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()){
+				PieData info = new PieData();
+				info.setValue(rs.getInt("value"));
+				info.setName(rs.getString("positioning_mode"));
+				infos.add(info);
+			}
+			
+			result.setData(infos);
+			result.setMessage("查询成功");
+			result.setStates(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			result.setMessage("查询失败");
+			result.setStates(false);
 			e.printStackTrace();
 		} finally{
 			if(conn!=null){
