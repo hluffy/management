@@ -37,6 +37,9 @@ public class CarController 	{
 	@ResponseBody
 	public Result getCarInfo(@RequestBody CarInfo info){
 		Result result = new Result();
+		if(info.getPage()==null){
+			info.setPage(0);
+		}
 		result = carService.getCarInfo(info);
 		return result;
 	}

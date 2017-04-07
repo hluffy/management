@@ -7,6 +7,8 @@ public class CarInfo {
 	private String engineNum;
 	private Timestamp productionTime;
 	
+	private Integer page;
+	
 	private String productionTimeStr;
 	public String getFrameNum() {
 		return frameNum;
@@ -31,6 +33,12 @@ public class CarInfo {
 	}
 	public void setProductionTimeStr(String productionTimeStr) {
 		this.productionTimeStr = productionTimeStr;
+	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 	
 

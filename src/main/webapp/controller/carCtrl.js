@@ -11,9 +11,22 @@ app.controller("carCtrl",function($rootScope,$scope,carService){
 	$scope.master = {};
 	$scope.car = {};
 	$scope.isShow = false;
+	$rootScope.pages = new Array();
+	$rootScope.indexPage = 1;
 	carService.getCarInfos().then(function(data){
 		$rootScope.cars = data.data;
+		$rootScope.count = data.count;
+		if($scope.count){
+			$scope.page = Math.ceil($scope.count/10);
+			$rootScope.lastPage = $scope.page;
+			for(var i=1;i<=$scope.page;i++){
+				$rootScope.pages[i-1] = i;
+			}
+		}
+		
 	});
+	
+	
 	
 	$scope.addCar = function(){
 		
@@ -25,11 +38,29 @@ app.controller("carCtrl",function($rootScope,$scope,carService){
 	}
 	
 	$scope.getCarInfo = function(){
+//		$scope.car.page = page;
+		$rootScope.pages = new Array();
 		carService.getCarInfo($scope.car).then(function(data){
-			console.log(data);
+			$scope.cars = data.data;
+			$rootScope.count = data.count;
+			if($scope.count){
+				$scope.page = Math.ceil($scope.count/10);
+				$rootScope.lastPage = $scope.page;
+				for(var i=1;i<=$scope.page;i++){
+					$rootScope.pages[i-1] = i;
+				}
+			}
+		});
+	}
+	
+	$scope.getCarInfoOfPage = function(page){
+		$rootScope.indexPage = page;
+		$scope.car.page = page;
+		carService.getCarInfo($scope.car).then(function(data){
 			$scope.cars = data.data;
 		});
 	}
+	
 	
 	$scope.updateCar = function($index){
 		$scope.isShow = true;
@@ -110,7 +141,7 @@ app.directive("carcancel",function($document){
 	}
 });
 
-app.directive("cardelete",function($document,carService){
+app.directive("cardelete",function($rootScope,$document,carService){
 	return{
 		restrict:"E",
 		require:"ngModel",
@@ -123,9 +154,10 @@ app.directive("cardelete",function($document,carService){
 							carService.deleteCarInfo(ngModel.$modelValue).then(function(data){
 								console.log(data);
 								alert(data.message);
-								
+								$rootScope.count = $rootScope.count-1;
 							});
 							scope.cars.splice(i,1);
+							
 							
 						}
 					}

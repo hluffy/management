@@ -1,7 +1,7 @@
 <section class="content-header">
 	<h1>车辆管理</h1>
 	</section>
-	<section class="content">
+	<section class="content" style="height:90%">
 	 <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -30,7 +30,7 @@
 <!--                   <th>操作</th> -->
                 </tr>
                 <tr ng-repeat="car in cars">
-                	<td>{{$index+1}}</td>
+                	<td>{{(indexPage-1)*10+$index+1}}</td>
                 	<td><input ng-model="car.frameNum" readonly class="inactive input{{car.frameNum}}"></td>
                 	
 <!--                 	<td>{{x.carFrameNum}}</td> -->
@@ -61,6 +61,21 @@
                 </tr>
                 </table>
             </div>
+            <div class="box-tools pull-left">
+            	count:{{count}}
+            </div>
+            <div class="box-tools pull-right">
+            	<ul class="pagination pagination-sm inline"><li><a ng-click="getCarInfoOfPage(0)">&laquo;</a></li></ul>
+                <ul class="pagination pagination-sm inline" ng-repeat="page in pages">
+<!--                   <li><a href="">&laquo;</a></li> -->
+<!--                   <li><a href="">1</a></li> -->
+<!--                   <li><a href="">2</a></li> -->
+<!--                   <li><a href="">3</a></li> -->
+<!--                   <li><a href="">&raquo;</a></li> -->
+					<li><a ng-click="getCarInfoOfPage($index+1)">{{$index+1}}</a></li>
+                </ul>
+                <ul class="pagination pagination-sm inline"><li><a ng-click="getCarInfoOfPage(lastPage)">&raquo;</a></li></ul>
+              </div>
           </div>
         </div>
       </div>

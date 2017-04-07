@@ -5,6 +5,8 @@ public class Result {
 	private String message;
 	private Object data;
 	private boolean states;
+	
+	private int count;
 	public int getId() {
 		return id;
 	}
@@ -29,6 +31,14 @@ public class Result {
 	public void setStates(boolean states) {
 		this.states = states;
 	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+	
 	
 
 }

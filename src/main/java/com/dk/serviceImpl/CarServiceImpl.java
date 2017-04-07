@@ -30,7 +30,7 @@ public class CarServiceImpl implements CarService{
 		
 		try {
 			conn = DBUtil.getConnection();
-			String sql  ="select * from carinfo";
+			String sql  ="select * from carinfo limit 0,10";
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -47,6 +47,12 @@ public class CarServiceImpl implements CarService{
 				}
 				
 				infos.add(info);
+			}
+			
+			sql = "select count(*) as carCount from carinfo";
+			rs = st.executeQuery(sql);
+			if(rs.next()){
+				result.setCount(rs.getInt("carCount"));
 			}
 			
 			result.setData(infos);
@@ -135,10 +141,18 @@ public class CarServiceImpl implements CarService{
 		if(info.getEngineNum()!=null&&!info.getEngineNum().isEmpty()){
 			sql.append(" and engine_num='"+info.getEngineNum()+"'");
 		}
+		if(info.getPage()==0){
+			sql.append(" limit 0,10");
+		}else{
+			sql.append(" limit "+(info.getPage()-1)*10+","+info.getPage()*10);
+		}
+		
 		
 		try {
 			conn = DBUtil.getConnection();
 			st = conn.createStatement();
+			
+			
 			ResultSet rs = st.executeQuery(sql.toString());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			while(rs.next()){
@@ -152,6 +166,20 @@ public class CarServiceImpl implements CarService{
 				}
 				infos.add(carInfo);
 			}
+			
+			sql = new StringBuffer("select count(*) as carCount from carinfo where 1=1");
+			if(info.getFrameNum()!=null&&!info.getFrameNum().isEmpty()){
+				sql.append(" and frame_num='"+info.getFrameNum()+"'");
+			}
+			if(info.getEngineNum()!=null&&!info.getEngineNum().isEmpty()){
+				sql.append(" and engine_num='"+info.getEngineNum()+"'");
+			}
+			rs = st.executeQuery(sql.toString());
+			if(rs.next()){
+				result.setCount(rs.getInt("carCount"));
+			}
+			
+			
 			result.setData(infos);
 			result.setStates(true);
 			result.setMessage("操作成功");
