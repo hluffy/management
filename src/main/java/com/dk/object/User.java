@@ -10,6 +10,8 @@ public class User {
 	private Timestamp createTime;
 	private String role;
 	
+	private Integer page;
+	
 	private String createTimeStr;
 	public String getUserName() {
 		return userName;
@@ -52,6 +54,12 @@ public class User {
 	}
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
+	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 	
 

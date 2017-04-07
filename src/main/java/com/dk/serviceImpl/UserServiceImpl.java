@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService{
 		Connection conn = null;
 		Statement st = null;
 		
-		String sql = "select * from userinfo";
+		String sql = "select * from userinfo limit 0,10";
 		try {
 //			conn = HsqlDB.getConnection();
 			conn = DBUtil.getConnection();
@@ -51,6 +51,12 @@ public class UserServiceImpl implements UserService{
 					user.setCreateTimeStr("");
 				}
 				users.add(user);
+			}
+			
+			sql = "select count(*) as userCount from userinfo";
+			rs = st.executeQuery(sql);
+			if(rs.next()){
+				result.setCount(rs.getInt("userCount"));
 			}
 			
 			result.setData(users);
@@ -314,24 +320,35 @@ public class UserServiceImpl implements UserService{
 		Statement st = null;
 		List<User> infos = new ArrayList<User>();
 		StringBuffer sql = new StringBuffer("select * from userinfo where 1 =1 ");
+		StringBuffer countSql = new StringBuffer("select count(*) as userCount from userinfo where 1=1 ");
 		
 		try {
 			conn = DBUtil.getConnection();
 			st = conn.createStatement();
 			if(info.getUserName()!=null&&!info.getUserName().isEmpty()){
 				sql.append(" and user_name='"+info.getUserName()+"'");
+				countSql.append(" and user_name='"+info.getUserName()+"'");
 			}
 			if(info.getPassword()!=null&&!info.getPassword().isEmpty()){
 				sql.append(" and password ='"+Md5Util.md5String(info.getPassword())+"'");
+				countSql.append(" and password ='"+Md5Util.md5String(info.getPassword())+"'");
 			}
 			if(info.getPhoneNum()!=null&&!info.getPhoneNum().isEmpty()){
 				sql.append(" and phone_number='"+info.getPhoneNum()+"'");
+				countSql.append(" and phone_number='"+info.getPhoneNum()+"'");
 			}
 			if(info.getEmail()!=null&&!info.getEmail().isEmpty()){
 				sql.append(" and email='"+info.getEmail()+"'");
+				countSql.append(" and email='"+info.getEmail()+"'");
 			}
 			if(info.getRole()!=null&&!info.getRole().isEmpty()){
 				sql.append(" and role ='"+info.getRole()+"'");
+				countSql.append(" and role ='"+info.getRole()+"'");
+			}
+			if(info.getPage()==0){
+				sql.append(" limit 0,10");
+			}else{
+				sql.append(" limit "+(info.getPage()-1)*10+","+info.getPage()*10);
 			}
 			
 			ResultSet rs = st.executeQuery(sql.toString());
@@ -351,6 +368,11 @@ public class UserServiceImpl implements UserService{
 				
 				
 				infos.add(user);
+			}
+			
+			rs = st.executeQuery(countSql.toString());
+			if(rs.next()){
+				result.setCount(rs.getInt("userCount"));
 			}
 			
 			result.setData(infos);

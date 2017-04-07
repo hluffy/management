@@ -62,10 +62,11 @@
                 </table>
             </div>
             <div class="box-tools pull-left">
-            	count:{{count}}
+            	<span style="color: blue;font-weight: bold">总数:{{count}}</span>
+            	
             </div>
             <div class="box-tools pull-right">
-            	<ul class="pagination pagination-sm inline"><li><a ng-click="getCarInfoOfPage(0)">&laquo;</a></li></ul>
+            	<ul class="pagination pagination-sm inline"><li><a ng-click="getCarInfoOfPage(1)">&laquo;</a></li></ul>
                 <ul class="pagination pagination-sm inline" ng-repeat="page in pages">
 <!--                   <li><a href="">&laquo;</a></li> -->
 <!--                   <li><a href="">1</a></li> -->

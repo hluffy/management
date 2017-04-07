@@ -305,7 +305,7 @@
 <!--                   <th>操作</th> -->
                 </tr>
                 <tr ng-repeat="user in users">
-                	<td>{{$index+1}}</td>
+                	<td>{{(indexPage-1)*10+$index+1}}</td>
                 	<td ng-bind="user.userName"><p ng-model="user.userName"></p></td>
 <!--                 	<td><input ng-model="user.userName" readonly class="inactive input{{user.userName}}"></td> -->
 <!--                 	<td>{{x.id}}</td> -->
@@ -457,7 +457,27 @@
 <!--                   <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td> -->
 <!--                 </tr> -->
               </table>
+              
+              
+              
             </div>
+            
+             <div class="box-tools pull-left">
+            	<span style="color: blue;font-weight: bold">总数:{{count}}</span>
+            	
+            </div>
+            <div class="box-tools pull-right">
+            	<ul class="pagination pagination-sm inline"><li><a ng-click="getUserInfoOfPage(1)">&laquo;</a></li></ul>
+                <ul class="pagination pagination-sm inline" ng-repeat="page in pages">
+<!--                   <li><a href="">&laquo;</a></li> -->
+<!--                   <li><a href="">1</a></li> -->
+<!--                   <li><a href="">2</a></li> -->
+<!--                   <li><a href="">3</a></li> -->
+<!--                   <li><a href="">&raquo;</a></li> -->
+					<li><a ng-click="getUserInfoOfPage($index+1)">{{$index+1}}</a></li>
+                </ul>
+                <ul class="pagination pagination-sm inline"><li><a ng-click="getUserInfoOfPage(lastPage)">&raquo;</a></li></ul>
+              </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

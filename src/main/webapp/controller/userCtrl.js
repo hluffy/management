@@ -8,16 +8,22 @@
 //});
 
 app.controller("userCtrl",function($rootScope,$scope,$http,userService){
-	console.log(1111);
-	console.log($rootScope.userName);
 	$scope.master = {};
 	$scope.user = {};
 	$scope.defIndex = -1;
 	$scope.isShow = false;
-	
+	$rootScope.pages = new Array();
+	$rootScope.indexPage = 1;
 	userService.getUserInfos().then(function(data){
-		console.log(data.data);
 		$rootScope.users = data.data;
+		$rootScope.count = data.count;
+		if($scope.count){
+			$scope.page = Math.ceil($scope.count/10);
+			$rootScope.lastPage = $scope.page;
+			for(var i=1;i<=$scope.page;i++){
+				$rootScope.pages[i-1] = i;
+			}
+		}
 	});
 	
 //	$http.get("http://localhost:8080/management/user/getinfos.ll").success(function(data){
@@ -40,10 +46,26 @@ app.controller("userCtrl",function($rootScope,$scope,$http,userService){
 	
 	$scope.getUserInfo = function(){
 		$scope.users = {};
+		$rootScope.pages = new Array();
 		userService.getUserInfo($scope.user).then(function(data){
-			console.log(data);
 			$scope.users = data.data;
+			$rootScope.count = data.count;
+			if($scope.count){
+				$scope.page = Math.ceil($scope.count/10);
+				$rootScope.lastPage = $scope.page;
+				for(var i=1;i<=$scope.page;i++){
+					$rootScope.pages[i-1] = i;
+				}
+			}
 		})
+	}
+	
+	$scope.getUserInfoOfPage = function(page){
+		$rootScope.indexPage = page;
+		$scope.user.page = page;
+		userService.getUserInfo($scope.user).then(function(data){
+			$scope.users = data.data;
+		});
 	}
 	
 	$scope.cancelUser = function($index){
@@ -139,7 +161,7 @@ app.directive("usercancel",function($document){
 	}
 });
 
-app.directive("userdelete",function($document,userService){
+app.directive("userdelete",function($rootScope,$document,userService){
 	return{
 		restrict:"E",
 		require:"ngModel",
@@ -154,6 +176,7 @@ app.directive("userdelete",function($document,userService){
 								
 								console.log(data);
 								alert(data.message);
+								$rootScope.count = $rootScope.count-1;
 							});
 							scope.users.splice(i,1);
 							

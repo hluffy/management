@@ -68,6 +68,9 @@ public class UserController {
 	@ResponseBody
 	public Result getUserInfo(@RequestBody User info){
 		Result result = new Result();
+		if(info.getPage()==null){
+			info.setPage(0);
+		}
 		result = userService.getUserInfo(info);
 		return result;
 	}
