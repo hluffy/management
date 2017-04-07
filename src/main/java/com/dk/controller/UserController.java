@@ -39,6 +39,10 @@ public class UserController {
 	@RequestMapping("addinfo.ll")
 	@ResponseBody
 	public Result addUserInfo(@RequestBody User user){
+		String role = user.getRole();
+		if(role==null||role.isEmpty()){
+			user.setRole("op");
+		}
 		Result result = new Result();
 		result = userService.addUserInfo(user);
 		return result;
