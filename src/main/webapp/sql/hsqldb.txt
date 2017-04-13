@@ -1,3 +1,3 @@
-alter table ±íÃû add ×Ö¶ÎÃû ÀàĞÍ
-alter table ±íÃû alter column ×Ö¶ÎÃû set (not) null
-alter table ±íÃû add constratint fk foreign key (×Ö¶ÎÃû) references ±íÃû(×Ö¶ÎÃû)
+alter table è¡¨å  add å­—æ®µå å­—æ®µç±»å‹
+alter table è¡¨å   alter column å­—æ®µå set  (not) null
+alter table è¡¨å   add constratint fk foreign key (å­—æ®µå) references è¡¨å(å­—æ®µå)
