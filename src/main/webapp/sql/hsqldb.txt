@@ -8,5 +8,8 @@ create table binding(
 	equipment_num varchar(200) not null,
 	bind_time Timestamp,
 	unbind_time Timestamp,
-	primary key (id)
+	primary key (id),
+	unique key (equipment_num,frame_num)
 )
+
+alter table 表名   add unique (字段名1，字段名2)
