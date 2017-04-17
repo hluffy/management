@@ -25,3 +25,11 @@ create table lora(
 	time timestamp,
 	primary key(number)
 )
+创建定位器表
+create table localizer(
+	number varchar(50) not null,
+	static_time varchar(50),
+	run_time varchar(50),
+	time Timestamp,
+	primary key(number)
+)
