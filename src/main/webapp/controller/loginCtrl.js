@@ -38,6 +38,7 @@ app.controller("loginCtrl",function($rootScope,$scope,loginService,$window){
 	}
 	
 	$scope.userLogin = function($rootScope){
+		addCookie("username",$scope.user.userName);
 		loginService.userLogin($scope.user).then(function(data){
 			if(!data.data){
 				$scope.errorImg = "用戶名不存在或密碼錯誤！";

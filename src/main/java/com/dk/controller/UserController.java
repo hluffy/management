@@ -1,8 +1,11 @@
 package com.dk.controller;
 
 import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,15 +55,23 @@ public class UserController {
 	@ResponseBody
 	public Result deleteUserInfo(@RequestBody User user){
 		Result result = new Result();
+		if("admin".equals(user.getUserName())){
+			result.setStates(false);
+			result.setMessage("该账号不可以删除!");
+			return result;
+		}
 		result = userService.deleteUserInfo(user);
 		return result;
 	}
 	
 	@RequestMapping("logininfo.ll")
 	@ResponseBody
-	public Result loginUserInfo(@RequestBody User user){
+	public Result loginUserInfo(@RequestBody User user,HttpServletResponse response){
 		Result result = new Result();
 		result = userService.loginUserInfo(user);
+		Cookie cookie = new Cookie("username",user.getUserName());
+		cookie.setPath("/");
+		response.addCookie(cookie);
 		return result;
 	}
 	

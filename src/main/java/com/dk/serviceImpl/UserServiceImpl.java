@@ -190,25 +190,46 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 	
-	private User getUserAsUserName(String userName) throws Exception{
+	public User getUserAsUserName(String userName){
 		User info = null;
-		Connection conn = DBUtil.getConnection();
-		String sql = "select * from userinfo where user_name = ?";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, userName);
-		ResultSet rs = ps.executeQuery();
-		if(rs.next()){
-			info = new User();
-			info.setUserName(userName);
-			info.setPassword(rs.getString("password"));
-			info.setPhoneNum(rs.getString("phone_number"));
-			info.setEmail(rs.getString("email"));
-			info.setCreateTime(rs.getTimestamp("create_time"));
-			info.setRole(rs.getString("role"));
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = DBUtil.getConnection();
+			String sql = "select * from userinfo where user_name = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, userName);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				info = new User();
+				info.setUserName(userName);
+				info.setPassword(rs.getString("password"));
+				info.setPhoneNum(rs.getString("phone_number"));
+				info.setEmail(rs.getString("email"));
+				info.setCreateTime(rs.getTimestamp("create_time"));
+				info.setRole(rs.getString("role"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(ps!=null){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		
-		conn.close();
-		ps.close();
 		return info;
 	}
 

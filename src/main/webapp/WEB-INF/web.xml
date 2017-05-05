@@ -10,6 +10,14 @@
 <!--     <welcome-file>default.jsp</welcome-file> -->
 <!--   </welcome-file-list> -->
 
+	<context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath:applicationContext.xml</param-value>  
+    </context-param>
+    <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>
+
 	<servlet>
 	    <servlet-name>springmvc</servlet-name>
 	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -30,7 +38,16 @@
     <filter-mapping>  
         <filter-name>requestFilter</filter-name>  
         <url-pattern>*.ll</url-pattern>  
-    </filter-mapping>  
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>roleFilter</filter-name>
+        <filter-class>com.dk.filter.RoleFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>roleFilter</filter-name>
+        <url-pattern>*.ll</url-pattern>
+    </filter-mapping>
 	
 <!-- 	<filter> -->
 <!-- 	    <filter-name>crossorigin</filter-name> -->

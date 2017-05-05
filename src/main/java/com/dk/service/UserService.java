@@ -10,5 +10,6 @@ public interface UserService {
 	Result deleteUserInfo(User info);
 	Result loginUserInfo(User info);
 	Result getUserInfo(User info);
+	User getUserAsUserName(String userName);
 
 }
