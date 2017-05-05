@@ -13,6 +13,8 @@ public class Test {
 		System.out.println(result);
 		JSONObject json = JSONObject.fromObject(result);
 		System.out.println(json.get("data"));
+		
+		String str = "admin";
 	}
 
 }
