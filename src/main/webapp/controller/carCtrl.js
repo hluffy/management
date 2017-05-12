@@ -154,6 +154,7 @@ app.directive("cardelete",function($rootScope,$document,carService){
 							carService.deleteCarInfo(ngModel.$modelValue).then(function(data){
 								console.log(data);
 								alert(data.message);
+								$rootScope.tipService.setMessage('登录成功', 'success');
 								$rootScope.count = $rootScope.count-1;
 							});
 							scope.cars.splice(i,1);

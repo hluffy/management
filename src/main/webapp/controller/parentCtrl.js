@@ -1,4 +1,4 @@
-app.controller("parentCtrl",function($scope){
+app.controller("parentCtrl",function($rootScope,$scope,TipService){
 //		$scope.userName = localStorage.getItem("userName");
 // 		$scope.userRole = localStorage.getItem("userRole");
 // 		console.log($scope.userRole);
@@ -12,6 +12,7 @@ app.controller("parentCtrl",function($scope){
  		$scope.userRole = sessionStorage.getItem("userRole");
  		
  		localStorage.clear();
+ 		$rootScope.tipService = TipService;
  		
 		
 		
